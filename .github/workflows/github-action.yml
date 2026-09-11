@@ -49,22 +49,22 @@ jobs:
             docker compose up -d
 
       # 6. Kirim Notifikasi ke Discord saat Sukses
-      - name: Discord Notification on Success
-        if: success()
-        uses: Sventaro/discord-webhook-action@v2
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "🚀 CI/CD Wayshub Backend Sukses!"
-          description: "Aplikasi `wayshub-backend` berhasil di deploy di server."
-          color: "#00FF00"
+#      - name: Discord Notification on Success
+#        if: success()
+#        uses: Sventaro/discord-webhook-action@v2
+#        with:
+#          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+#          title: "🚀 CI/CD Wayshub Backend Sukses!"
+#          description: "Aplikasi `wayshub-backend` berhasil di deploy di server."
+#          color: "#00FF00"
 
       # 7. Kirim Notifikasi ke Discord saat Gagal
-      - name: Discord Notification on Failure
-        if: failure()
-        uses: Sventaro/discord-webhook-action@v2
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "❌ CI/CD Wayshub Backend Gagal!"
-          description: "Wroses CI/CD `wayshub-backend` gagal di deploy di server."
-          color: "#FF0000"
+#      - name: Discord Notification on Failure
+#        if: failure()
+#        uses: Sventaro/discord-webhook-action@v2
+#        with:
+#          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+#          title: "❌ CI/CD Wayshub Backend Gagal!"
+#          description: "Wroses CI/CD `wayshub-backend` gagal di deploy di server."
+#          color: "#FF0000"
 
