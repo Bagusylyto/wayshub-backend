@@ -64,9 +64,6 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           message: "🚀 CI/CD Wayshub Backend Sukses! Aplikasi `wayshub-backend` berhasil di-deploy di server."
-#          title: "🚀 CI/CD Wayshub Backend Sukses!"
-#          description: "Aplikasi `wayshub-backend` berhasil di deploy di server."
-#          color: "#00FF00"
 
       # 7. Kirim Notifikasi ke Discord saat Gagal
       - name: Discord Notification on Failure
@@ -75,7 +72,3 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           message: "❌ CI/CD Wayshub Backend Gagal! Proses CI/CD `wayshub-backend` gagal pada pipeline."
-#          title: "❌ CI/CD Wayshub Backend Gagal!"
-#          description: "Wroses CI/CD `wayshub-backend` gagal di deploy di server."
-#          color: "#FF0000"
-
