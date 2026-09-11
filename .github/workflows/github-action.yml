@@ -52,22 +52,29 @@ jobs:
             docker compose down
             docker compose up -d
 
+  notif-discord:
+    runs-on: ubuntu:latest
+    needs: deploy-app
+    if: always()
+    steps:
       # 6. Kirim Notifikasi ke Discord saat Sukses
-#      - name: Discord Notification on Success
-#        if: success()
-#        uses: Sventaro/discord-webhook-action@v2
-#        with:
-#          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Discord Notification on Success
+        if: ${{ needs.deploy-app.result == 'success' }}
+        uses: appleboy/discord-action@master
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message: "🚀 CI/CD Wayshub Backend Sukses! Aplikasi `wayshub-backend` berhasil di-deploy di server."
 #          title: "🚀 CI/CD Wayshub Backend Sukses!"
 #          description: "Aplikasi `wayshub-backend` berhasil di deploy di server."
 #          color: "#00FF00"
 
       # 7. Kirim Notifikasi ke Discord saat Gagal
-#      - name: Discord Notification on Failure
-#        if: failure()
-#        uses: Sventaro/discord-webhook-action@v2
-#        with:
-#          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Discord Notification on Failure
+        if: ${{ needs.deploy-app.result == 'failure' || needs.build-and-push.result == 'failure' }}
+        uses: appleboy/discord-action@master
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message: "❌ CI/CD Wayshub Backend Gagal! Proses CI/CD `wayshub-backend` gagal pada pipeline."
 #          title: "❌ CI/CD Wayshub Backend Gagal!"
 #          description: "Wroses CI/CD `wayshub-backend` gagal di deploy di server."
 #          color: "#FF0000"
