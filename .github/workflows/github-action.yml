@@ -62,7 +62,7 @@ jobs:
         if: ${{ needs.deploy-app.result == 'success' }}
         uses: appleboy/discord-action@master
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           message: "🚀 CI/CD Wayshub Backend Sukses! Aplikasi `wayshub-backend` berhasil di-deploy di server."
 #          title: "🚀 CI/CD Wayshub Backend Sukses!"
 #          description: "Aplikasi `wayshub-backend` berhasil di deploy di server."
@@ -73,7 +73,7 @@ jobs:
         if: ${{ needs.deploy-app.result == 'failure' || needs.build-and-push.result == 'failure' }}
         uses: appleboy/discord-action@master
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           message: "❌ CI/CD Wayshub Backend Gagal! Proses CI/CD `wayshub-backend` gagal pada pipeline."
 #          title: "❌ CI/CD Wayshub Backend Gagal!"
 #          description: "Wroses CI/CD `wayshub-backend` gagal di deploy di server."
