@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
+    "username": "bagus",
+    "password": "dumbways",
     "database": "wayshub",
-    "host": "127.0.0.1",
+    "host": "database",
     "dialect": "mysql"
   },
   "test": {

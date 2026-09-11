@@ -1,0 +1,14 @@
+services:
+
+  backend:
+    container_name: wayshub-backend
+    image: bagusylyto/wayshub-backend:dev
+    stdin_open: true
+    ports:
+      - 5000:5000
+    networks:
+      - wayshub-net
+
+networks:
+  wayshub-net:
+    external: true
