@@ -51,7 +51,7 @@ jobs:
       # 6. Kirim Notifikasi ke Discord saat Sukses
       - name: Discord Notification on Success
         if: success()
-        uses: svenstaro/discord-webhook-action@v1.1
+        uses: svenstaro/discord-webhook-action@v2
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           title: "🚀 CI/CD Wayshub Backend Sukses!"
@@ -61,7 +61,7 @@ jobs:
       # 7. Kirim Notifikasi ke Discord saat Gagal
       - name: Discord Notification on Failure
         if: failure()
-        uses: svenstaro/discord-webhook-action@v1.1
+        uses: svenstaro/discord-webhook-action@v2
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           title: "❌ CI/CD Wayshub Backend Gagal!"
