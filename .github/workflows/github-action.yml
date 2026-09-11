@@ -72,3 +72,4 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           message: "❌ CI/CD Wayshub Backend Gagal! Proses CI/CD `wayshub-backend` gagal pada pipeline."
+##
