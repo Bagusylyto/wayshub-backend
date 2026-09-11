@@ -1,0 +1,70 @@
+name: Wayshub Backend Github Action
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout Code Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Login ke Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 3. Setup Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 4. Build dan Push Docker Image
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/wayshub-backend:dev
+
+      # 5. Deploy Aplikasi via SSH
+      - name: Deploy to Server via Terminal
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.APP_HOST }}
+          username: ${{ secrets.APP_USERNAME }}
+          key: ${{ secrets.APP_SSH_KEY }}
+          port: ${{ secrets.APP_PORT }}
+          script: |
+            cd ${{ secrets.APP_DIREKTORY }}
+            docker compose pull
+            docker compose down
+            docker compose up -d
+
+      # 6. Kirim Notifikasi ke Discord saat Sukses
+      - name: Discord Notification on Success
+        if: success()
+        uses: Ilshat/discord-webhook-action@v1.1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "🚀 CI/CD Wayshub Backend Sukses!"
+          description: "Aplikasi `wayshub-backend` berhasil di deploy di server."
+          color: "#00FF00"
+
+      # 7. Kirim Notifikasi ke Discord saat Gagal
+      - name: Discord Notification on Failure
+        if: failure()
+        uses: Ilshat/discord-webhook-action@v1.1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "❌ CI/CD Wayshub Backend Gagal!"
+          description: "Wroses CI/CD `wayshub-backend` gagal di deploy di server."
+          color: "#FF0000"
+
